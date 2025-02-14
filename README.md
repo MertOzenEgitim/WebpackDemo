@@ -165,3 +165,49 @@ module.exports={
 `Source Maps` özellikle development ortamında debug etme amacıyla kullanılabilecek bundle edilmiş dosyaları eşleştirmek amaçlı kullanılmaktadır. Production ortamı için kesinlikle bu map dosyalarının kullanılmaması gerekmektedir.
 
 `watch:true` ile development durumundayken ilgili dosyaların takip edilmesi ve değişikliklerin anında çıktı dosyasına uygulanmasını sağlayabilirsiniz. Böylece sürekli terminal komutu kullanarak çıktı almak zorunda kalmazsınız.
+
+## 4- Webpack Loaders ile Çalışmak
+
+Webpack, proje içerisindeki farklı dosya tiplerini (CSS, SCSS, JS, HTML, görseller, fontlar vb.) işlemenize olanak sağlayan loader’lar ile esnek ve güçlü bir yapı sunar. Loader’lar, dosyaları “ön işleme” tabi tutar, yani orijinal dosya formatını, web tarayıcılarının anlayabileceği formata dönüştürürler.
+
+### 4.1	CSS ve SCSS Dosyalarını Yüklemek
+CSS/SCSS dosyalarının projeye dahil edilmesi ve tarayıcıda uygulanması.
+`sass-loader:` SCSS/SASS dosyalarını alır ve standart CSS’e dönüştürür.
+`Not:` Bu loader’ın çalışması için node-sass veya sass paketlerinden biri olmalıdır
+`css-loader:` CSS dosyalarını analiz eder, içindeki @import ve url() gibi ifadeleri çözümleyerek JavaScript modüllerine dönüştürür.
+`Önemli:` CSS dosyalarını modül olarak içe aktarmayı sağlar.
+`style-loader:` İşlenmiş CSS kodunu DOM içerisine <style> etiketleri aracılığıyla ekler. 
+`Not:` Development aşamasında tercih edilir; production ortamında CSS’in ayrı bir dosyaya çıkarılması için `MiniCssExtractPlugin` gibi araçlar kullanılır.
+
+### 4.2	Babel kullanımı (ES6+ Desteği)
+
+Modern JavaScript (ES6 ve üzeri) kodlarını, eski tarayıcılar tarafından da desteklenen ES5 formatına dönüştürmek.
+
+`babel-loader:` Webpack için Babel entegrasyonu sağlar. Modern JS kodlarını derleyerek uyumlu hale getirir.
+
+`@babel/core` ve `@babel/preset-env`: Babel’in temel çekirdeği ve ES6+ kodlarının hedef tarayıcıya göre dönüştürülmesini sağlayan paketlerdir.
+
+### 4.3	File ve URL loader’lar (Görseller, Fontlar)
+
+Webpack4’te dosyalar için url-loader, file-loader, raw-loader paketleri kullanılıyordu. Webpack5 ile built-in 
+olarak sağlamaktadır.
+
+![fileurlloadertable](readme-image/fileurlloadertable.png)
+
+### 4.4	HTML loader kullanımı
+
+HTML dosyalarını modül olarak işleyip, içinde bulunan varlık referanslarını (ör. <img src="">) webpack tarafından yönetilebilir hale getirmek.
+
+`html-loader:` HTML dosyalarını string olarak içe aktarır ve içerisindeki kaynak (asset) referanslarını değerlendirir.
+
+`Özellik:` HTML içerisindeki `<img>, <source>,` vb. etiketlerdeki src veya data-* attribute’larını işleyerek, ilgili asset’lerin de webpack tarafından yüklenmesini sağlar.
+
+### 4.5	Kurulum Komutları
+
+```npm
+npm install --save-dev style-loader css-loader sass-loader sass 
+npm install --save-dev babel-loader @babel/core @babel/preset-env 
+npm install --save-dev html-loader html-webpack-plugin
+
+```
+

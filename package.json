@@ -5,12 +5,21 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "npx webpack --config webpack.config.dev.js",
-    "build:prod":"npx webpack --config webpack.config.prod.js"
+    "build:prod": "npx webpack --config webpack.config.prod.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.26.8",
+    "@babel/preset-env": "^7.26.8",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^7.1.2",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.3",
+    "sass": "^1.84.0",
+    "sass-loader": "^16.0.4",
+    "style-loader": "^4.0.0",
     "webpack": "^5.97.1",
     "webpack-cli": "^6.0.1"
   }

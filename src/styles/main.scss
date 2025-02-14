@@ -1,0 +1,45 @@
+$primary-color:#3498db;
+
+@font-face {
+    font-family: 'CustomFont';
+    src: url('../assets/fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'CustomFont';
+    src: url('../assets/fonts/Roboto-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'CustomFont';
+    src: url('../assets/fonts/Roboto-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+body{
+    font-family: 'CustomFont', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    background-color: $primary-color;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+h1{
+    margin: 0;
+}
+img{
+    width: 50px;
+    height: auto;
+    margin-top: 10px;
+}
