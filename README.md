@@ -211,3 +211,34 @@ npm install --save-dev html-loader html-webpack-plugin
 
 ```
 
+## 5- Webpack Plugins ile Çalışmak
+Webpack, projenin derleme sürecini daha verimli hale getirmek için birçok plugin sunar. Plugins (eklentiler), Webpack'in yeteneklerini genişletmeye yardımcı olur.
+
+https://webpack.js.org/plugins/ 
+
+### 5.1 HTML Webpack Plugin
+
+HTML Webpack Plugin, Webpack ile bir HTML dosyası oluşturmak veya var olan bir HTML dosyasını özelleştirmek için kullanılır. Webpack tarafından oluşturulan script ve CSS dosyalarını otomatik olarak HTML'e ekler.
+
+`npm install --save-dev html-webpack-plugin`
+
+![htmlwebpackplugin](readme-image/htmlwebpackplugin.png)
+
+### 5.2 Clean Webpack Plugin
+Clean Webpack Plugin, her derleme öncesinde belirli klasörleri temizleyerek eski dosyaları kaldırır.
+
+`npm install --save-dev clean-webpack-plugin`
+
+![cleanwebpackplugin](readme-image/cleanwebpackplugin.png)
+
+### 5.3 Mini Css Extract Plugin
+MiniCssExtractPlugin, CSS dosyalarını JS dosyalarından ayırıp, harici bir CSS dosyası olarak oluşturur.
+
+`npm install --save-dev mini-css-extract-plugin`
+
+![minicssextractplugin](readme-image/minicssextractplugin.png)
+
+### 5.4 DefinePlugin ile Global Değişkenler
+DefinePlugin, derleme zamanında global sabitler oluşturmak için kullanılır.
+
+![defineplugin](readme-image/defineplugin.png)
