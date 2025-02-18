@@ -242,3 +242,24 @@ MiniCssExtractPlugin, CSS dosyalarını JS dosyalarından ayırıp, harici bir C
 DefinePlugin, derleme zamanında global sabitler oluşturmak için kullanılır.
 
 ![defineplugin](readme-image/defineplugin.png)
+
+## 6-Webpack Geliştirme Ortamını İyileştirme
+
+### 6.1 Webpack Dev Server Kullanımı
+Webpack Dev Server (WDS), geliştirme sırasında statik dosyaları sunmak, otomatik yeniden yükleme sağlamak ve HMR ile çalışmak için kullanılan bir araçtır.
+
+`npm install webpack-dev-server --save-dev`
+
+![devserver](readme-image/devserver.png)
+
+### 6.2 Hot Module Replacement (HMR)
+HMR, sayfanın tamamını yeniden yüklemeden yalnızca değişen modülleri güncelleyerek geliştirme sürecini hızlandırır. Özellikle React, Vue gibi modern frameworklerle kullanılır.
+
+![hmr](readme-image/hmr.png)
+
+### 6.3 Webpack Dashboard ile Log Yönetimi
+Webpack Dashboard, derleme sırasında logları daha anlaşılır hale getiren bir eklentidir. Performans analizi yaparak geliştirme sürecinde zaman kazandırır.
+
+`npm install webpack-dashboard --save-dev`
+
+![webpackdashboard](readme-image/webpackdashboard.png)
