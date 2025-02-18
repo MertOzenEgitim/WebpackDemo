@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin}=require('clean-webpack-plugin');
 const MiniCssExtractPlugin=require('mini-css-extract-plugin');
 const webpack  = require('webpack');
+const DasboardPlugin=require('webpack-dashboard/plugin');
 
 module.exports={
     entry:'./src/js/main.js',
@@ -66,9 +67,16 @@ module.exports={
         new MiniCssExtractPlugin({filename:'[name].[hash:7].css'}),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV':JSON.stringify('development')
-        })
+        }),
+        new DasboardPlugin()
     ],
     devtool:'source-map',
     mode:'development',
-    watch:true
+    devServer:{
+        static:'./dist',
+        port:3000,
+        open:true,
+        hot:true,
+        historyApiFallback:true
+    }
 };
