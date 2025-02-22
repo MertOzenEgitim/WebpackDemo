@@ -263,3 +263,103 @@ Webpack Dashboard, derleme sırasında logları daha anlaşılır hale getiren b
 `npm install webpack-dashboard --save-dev`
 
 ![webpackdashboard](readme-image/webpackdashboard.png)
+
+## 7. Webpack ve Modüler Yapı
+### 7.1 Dynamic Import ve Lazy Loading
+
+Dynamic Import Nedir?
+JavaScript dosyalarını çalışma zamanında yüklemeyi sağlar. import() fonksiyonu kullanılarak modüller dinamik olarak çağrılabilir. Statik import yerine kullanıldığında, sadece ihtiyaç duyulduğunda kod yüklenir.
+
+Lazy Loading (Tembel Yükleme) Nedir?
+Kullanıcı etkileşimine veya belirli bir koşula bağlı olarak modüllerin gecikmeli yüklenmesi işlemidir. Özellikle büyük uygulamalarda başlangıç yükleme süresini azaltmak için kullanılır.
+
+```js
+btnFooter.addEventListener('click',async ()=>{
+    const footerModule=await import('../components/Footer');
+    const Footer=footerModule.default();
+    app.append(Footer);
+});
+```
+### 7.2 Code Splitting 
+
+Uygulamanın JavaScript dosyalarını daha küçük parçalara bölerek yönetilebilir ve optimize edilebilir hale getirme işlemidir. Kullanıcı sadece ihtiyacı olan kodu indirir, gereksiz yüklemelerden kaçınılır.
+
+`Code Splitting Yöntemleri`
+`Entry Point Bazlı Bölme:` Farklı giriş noktaları (entry points) oluşturulur.
+`Dinamik import() Kullanımı:` Kullanılmadıkça yüklenmeyen modüller oluşturulur.
+`SplitChunks Kullanımı:` Ortak kullanılan kodlar tekrar yüklenmez.
+
+```js
+module.exports={
+    entry:{main:'./src/js/main.js',
+        admin:'./src/js/admin.js'
+    },
+    output:{
+        filename:'[name].[hash:7].js',
+        path:path.resolve(__dirname,'dist'),
+        chunkFilename:'[name].chunk.js'
+    }
+}
+```
+
+SplitChunks Kullanımı
+
+```js
+module.exports={
+ optimization:{
+        splitChunks:{
+            chunks:'all',
+            minSize:20000,
+            maxSize:40000,
+            minChunks:1,
+            automaticNameDelimiter:'-',
+            cacheGroups:{
+                vendor:{
+                    test:/[\\/]node_modules[\\/]/,
+                    name:'vendor',
+                    chunks:'all'
+                },
+                common:{
+                    test:/[\\/]components[\\/]/,
+                    name:'common',
+                    chunks:'all'
+                }
+            }
+        }
+    }
+}
+```
+
+### 7.3 Tree Shaking ile Gereksiz Kodları Kaldırma
+
+Tree Shaking Nedir?
+Kullanılmayan (dead code) JavaScript kodlarını bundle'dan çıkarmaya yarayan optimizasyon tekniğidir.
+ES6 module (import/export) yapısı kullanıldığında Webpack gereksiz kodları algılayabilir.
+
+```js
+module.exports={
+ optimization:{
+        splitChunks:{
+            chunks:'all',
+            minSize:20000,
+            maxSize:40000,
+            minChunks:1,
+            automaticNameDelimiter:'-',
+            cacheGroups:{
+                vendor:{
+                    test:/[\\/]node_modules[\\/]/,
+                    name:'vendor',
+                    chunks:'all'
+                },
+                common:{
+                    test:/[\\/]components[\\/]/,
+                    name:'common',
+                    chunks:'all'
+                }
+            }
+        },
+        usedExports:true
+    }
+}
+```
+

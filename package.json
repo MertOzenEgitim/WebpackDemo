@@ -4,12 +4,13 @@
   "description": "WebpackDemo",
   "main": "index.js",
   "scripts": {
-    "build:dev": "npx webpack-dashboard -- webpack serve --config webpack.config.dev.js",
+    "build:dev": "npx webpack serve --config webpack.config.dev.js",
     "build:prod": "npx webpack --config webpack.config.prod.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "sideEffects":["*.css","*.scss"],
   "devDependencies": {
     "@babel/core": "^7.26.8",
     "@babel/preset-env": "^7.26.8",
@@ -24,7 +25,6 @@
     "style-loader": "^4.0.0",
     "webpack": "^5.97.1",
     "webpack-cli": "^6.0.1",
-    "webpack-dashboard": "^3.3.8",
     "webpack-dev-server": "^5.2.0"
   }
 }
