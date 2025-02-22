@@ -3,15 +3,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin}=require('clean-webpack-plugin');
 const MiniCssExtractPlugin=require('mini-css-extract-plugin');
 const webpack  = require('webpack');
+const TerserPlugin=require("terser-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports={
     entry:{main:'./src/js/main.js',
         admin:'./src/js/admin.js'
     },
     output:{
-        filename:'[name].[hash:7].js',
+        filename:'[name].[contenthash].js',
         path:path.resolve(__dirname,'dist'),
-        chunkFilename:'[name].chunk.js'
+        chunkFilename:'[name].[chunkhash].js'
     },
     optimization:{
         splitChunks:{
@@ -33,6 +35,27 @@ module.exports={
                 }
             }
         },
+        minimize:true,
+        minimizer:[
+            new TerserPlugin({
+            terserOptions:{
+                compress:{
+                    drop_console:true,
+                }
+            }
+            }),
+            new CssMinimizerPlugin({
+                test:/\.css$/i,
+                minimizerOptions:{
+                    preset:[
+                        "default",
+                        {
+                            discardComments:{removeAll:true},
+                        }
+                    ]
+                }
+            })
+        ],
         usedExports:true
     },
     module:{
@@ -61,14 +84,14 @@ module.exports={
                     }
                 },
                 generator: {
-                    filename: 'assets/images/[name].[hash:7][ext]'
+                    filename: 'assets/images/[name].[contenthash][ext]'
                 }
             },
             {
                 test:/\.(woff|woff2|ttf|eot)$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'assets/fonts/[name].[hash:7][ext]'
+                    filename: 'assets/fonts/[name].[contenthash][ext]'
                 }
             },
             {
@@ -85,10 +108,14 @@ module.exports={
     plugins:[
         new HtmlWebpackPlugin({
             template:'./src/index.html',
-            filename:'index.html'
+            filename:'index.html',
+            minify:{
+                collapseWhitespace:true,
+                removeComments:false
+            }
         }),
         new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin({filename:'[name].[hash:7].css'}),
+        new MiniCssExtractPlugin({filename:'[name].[contenthash].css'}),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV':JSON.stringify('production')
         })

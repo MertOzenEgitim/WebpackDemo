@@ -10,7 +10,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "sideEffects":["*.css","*.scss"],
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
   "devDependencies": {
     "@babel/core": "^7.26.8",
     "@babel/preset-env": "^7.26.8",
@@ -26,5 +29,8 @@
     "webpack": "^5.97.1",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.0"
+  },
+  "dependencies": {
+    "css-minimizer-webpack-plugin": "^7.0.0"
   }
 }
