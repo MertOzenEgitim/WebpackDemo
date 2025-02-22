@@ -5,10 +5,35 @@ const MiniCssExtractPlugin=require('mini-css-extract-plugin');
 const webpack  = require('webpack');
 
 module.exports={
-    entry:'./src/js/main.js',
+    entry:{main:'./src/js/main.js',
+        admin:'./src/js/admin.js'
+    },
     output:{
-        filename:'bundle.[hash:7].js',
-        path:path.resolve(__dirname,'dist')
+        filename:'[name].[hash:7].js',
+        path:path.resolve(__dirname,'dist'),
+        chunkFilename:'[name].chunk.js'
+    },
+    optimization:{
+        splitChunks:{
+            chunks:'all',
+            minSize:20000,
+            maxSize:40000,
+            minChunks:1,
+            automaticNameDelimiter:'-',
+            cacheGroups:{
+                vendor:{
+                    test:/[\\/]node_modules[\\/]/,
+                    name:'vendor',
+                    chunks:'all'
+                },
+                common:{
+                    test:/[\\/]components[\\/]/,
+                    name:'common',
+                    chunks:'all'
+                }
+            }
+        },
+        usedExports:true
     },
     module:{
         rules:[
@@ -68,5 +93,5 @@ module.exports={
             'process.env.NODE_ENV':JSON.stringify('production')
         })
     ],
-    mode:'production'    
+    mode:'production',
 };

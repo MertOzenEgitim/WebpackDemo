@@ -3,7 +3,7 @@ import logo from '../assets/images/logo.png';
 export default function Header(){
     const header = document.createElement('header');
     header.innerHTML = `
-        <h1>Webpack Project Header</h1>
+        <h1>Webpack Project Admin Header</h1>
         <img src="${logo}" alt="logo">
     `;
     return header;
