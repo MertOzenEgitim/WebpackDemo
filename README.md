@@ -363,3 +363,73 @@ module.exports={
 }
 ```
 
+## 8. Webpack ile Paketleme (Production Build)
+- Çıktıyı optimize etme (TerserPlugin)
+- Cache Busting ve Hash kullanımı
+- Dosya küçültme (Minification)
+
+### 8.1 Çıktıyı Optimize Etme (TerserPlugin)
+
+Webpack 5, üretim modunda varsayılan olarak TerserPlugin kullanır.
+Terser, gereksiz boşlukları, yorumları kaldırır ve değişken adlarını küçültür (minification + uglification).
+
+### 8.2 Cache Busting ve Hash Kullanımı
+Tarayıcı önbellekleme sorunlarını önlemek için dosya adlarına hash eklenir.
+`contenthash`: Dosyanın içeriğine bağlı olarak değişir, değişmeyen dosyalarda hash sabit kalır.
+`hash`: Tüm build'e bağlı olarak değişir.
+`chunkhash`: Her chunk için ayrı hash oluşturur.
+
+### 8.3 Dosya Küçültme (Minification)
+Terser, JS dosyalarını küçültmek için kullanılır. Varsayılan olarak production modunda zaten aktif. 
+
+```js
+ optimization:{
+ minimize:true,
+  minimizer:[
+    new TerserPlugin({
+    terserOptions:{
+        compress:{
+            drop_console:true,
+        }
+    })
+    ]
+ }
+```
+
+CSS, tarafında CssMinimizerPlugin kullanılabilir. Ancak zaten MiniCssExtractPlugin minimize etmek için yeterli oluyor.
+
+
+```js
+ optimization:{
+ minimize:true,
+  minimizer:[    
+    new CssMinimizerPlugin({
+        test:/\.css$/i,
+        minimizerOptions:{
+            preset:[
+                "default",
+                {
+                    discardComments:{removeAll:true},
+                }
+            ]
+        }
+    })
+    ]
+ }
+```
+
+HTML tarafın da ise HtmlWebpackPlugin varsayılan olarak minimize etme işlemini gerçekleştiriyor. Ancak minimize etmesin vs. demek için kendiniz yapılandırma işlemini ayrıca ele alabilirsiniz. Yorum satırlarını kaldır gibi durumlar için kullanılabilir.
+
+```js
+plugins:[
+        new HtmlWebpackPlugin({
+            template:'./src/index.html',
+            filename:'index.html',
+            minify:{
+                collapseWhitespace:true,
+                removeComments:false
+            }
+        }),
+]
+```
+
